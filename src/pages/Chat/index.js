@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
@@ -30,11 +30,6 @@ const Chat = ({ match }) => {
         }
 
         if (!initialized) {
-            document.body.style.backgroundColor = "#e5e5e5";
-            document.body.style.minWidth = "350px";
-            document.body.style.minHeight = "475px";
-            document.body.style.margin = "0";
-
             api
                 .get(`/chat/${match.params.roomId}`)
                 .then(res => {
@@ -53,7 +48,7 @@ const Chat = ({ match }) => {
                     }
                 })
                 .catch(err => {
-                    history.push('/somethingWentWrong');
+                    history.push('/somethingWentWrong', { 'message': err });
                     return function cleanup() { }
                 });
 
@@ -70,7 +65,14 @@ const Chat = ({ match }) => {
         });
     });
 
-    useEffect(() => {
+    useLayoutEffect(() => {
+        document.body.style.backgroundColor = "#e5e5e5";
+        document.body.style.minWidth = "350px";
+        document.body.style.minHeight = "475px";
+        document.body.style.margin = "0";
+    }, []);
+
+    useLayoutEffect(() => {
         chatListContainerRef.current.scrollTop = chatListContainerRef.current.scrollHeight;
     }, [msgList]);
 
