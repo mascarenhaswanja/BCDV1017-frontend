@@ -43,7 +43,7 @@ const Admin = () => {
     function handleClickLogout(e) {
         e.preventDefault();
 
-        removeCookie('adminToken');
+        //removeCookie('adminToken');
 
         history.push('/admin/login');
     }
