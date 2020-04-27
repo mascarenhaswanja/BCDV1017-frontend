@@ -4,7 +4,7 @@ import { baseURL } from './baseURL.json';
 
 //const socket = socketIOClient(baseURL);
 
-const socket = socketIOClient(BASE_URL, {
+const socket = socketIOClient(baseURL, {
     secure: true,
     transports: ['websocket'],
   });
